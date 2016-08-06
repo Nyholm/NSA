@@ -4,6 +4,8 @@ namespace Nyholm\Reflection\Tests\Fixture;
 
 class Animal extends Thing
 {
+    private static $age = 'initialAge';
+
     private $latinName = 'initLatinName';
 
     public $alive = true;

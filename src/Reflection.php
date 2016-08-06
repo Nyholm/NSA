@@ -2,6 +2,8 @@
 
 namespace Nyholm\Reflection;
 
+use Webmozart\Assert\Assert;
+
 /**
  * Warning: This class should only be used with tests, fixtures or debug.
  *
@@ -16,9 +18,17 @@ class Reflection
      * @param string $propertyName
      *
      * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
     public static function getProperty($object, $propertyName)
     {
+        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
+
+        if (is_string($object)) {
+            self::getStaticProperty($object, $propertyName)->getValue();
+        }
+
         return self::getAccessibleReflectionProperty($object, $propertyName)->getValue($object);
     }
 
@@ -28,9 +38,17 @@ class Reflection
      * @param object $object
      * @param string $propertyName
      * @param mixed  $value
+     *
+     * @throws \InvalidArgumentException
      */
     public static function setProperty($object, $propertyName, $value)
     {
+        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
+
+        if (is_string($object)) {
+            self::getStaticProperty($object, $propertyName)->getValue();
+        }
+
         return self::getAccessibleReflectionProperty($object, $propertyName)->setValue($object, $value);
     }
 
@@ -43,7 +61,7 @@ class Reflection
      *
      * @return mixed
      *
-     * @throws \LogicException
+     * @throws \InvalidArgumentException
      */
     public static function invokeMethod()
     {
@@ -55,13 +73,9 @@ class Reflection
         $object = array_shift($arguments);
         $methodName = array_shift($arguments);
 
-        if (!is_object($object)) {
-            throw new \LogicException(sprintf('Can not invoke method of a non object. Variable of type "%s" was given..', gettype($object)));
-        }
-
-        if (!is_string($methodName)) {
-            throw new \LogicException(sprintf('Method name has to be a string. Variable of type "%s" was given..', gettype($methodName)));
-        }
+        Assert::object($object, 'Can not invoke method of a non object. Variable of type "%s" was given.');
+        Assert::notInstanceOf($object, '\stdClass', 'Can not get a method of \stdClass.');
+        Assert::string($methodName, 'Method name has to be a string. Variable of type "%s" was given.');
 
         $refl = new \ReflectionClass($object);
         if (!$refl->hasMethod($methodName)) {
@@ -104,13 +118,14 @@ class Reflection
      *
      * @return \ReflectionProperty
      *
-     * @throws \LogicException if the property is not found
+     * @throws \InvalidArgumentException
+     * @throws \LogicException if the property is not found on the object
      */
     protected static function getAccessibleReflectionProperty($object, $propertyName)
     {
-        if (!is_object($object)) {
-            throw new \LogicException(sprintf('Can not get a property of a non object. Variable of type "%s" was given.', gettype($object)));
-        }
+        Assert::object($object, 'Can not get a property of a non object. Variable of type "%s" was given.');
+        Assert::notInstanceOf($object, '\stdClass', 'Can not get a property of \stdClass.');
+        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
         if (null === $refl = self::getReflectionClassWithProperty($object, $propertyName)) {
             throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, get_class($object)));

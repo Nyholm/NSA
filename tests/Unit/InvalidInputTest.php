@@ -8,14 +8,14 @@ use Nyholm\Reflection\Tests\Fixture\Dog;
 class InvalidInputTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testIntegerProperty()
     {
         Reflection::getProperty(1, 'foo');
     }
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testArrayProperty()
     {
@@ -23,7 +23,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testStdClassProperty()
     {
@@ -33,15 +33,35 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         Reflection::getProperty($o, 'foo');
     }
 
+
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
+     */
+    public function testArrayPropertyValue()
+    {
+        Reflection::getProperty(new Dog(), array('foo' => 'bar'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStdClassPropertyValue()
+    {
+        $o = new \stdClass();
+        $o->foo = 'bar';
+
+        Reflection::getProperty(new Dog(), $o);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
      */
     public function testIntegerMethod()
     {
         Reflection::invokeMethod(1, 'foo');
     }
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testArrayMethod()
     {
@@ -49,7 +69,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testStdClassMethod()
     {
@@ -59,14 +79,14 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         Reflection::invokeMethod($o, 'foo');
     }
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testIntegerMethodName()
     {
         Reflection::invokeMethod(new Dog(), 1);
     }
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testArrayMethodName()
     {
@@ -74,7 +94,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \LogicException
+     * @expectedException \InvalidArgumentException
      */
     public function testStdClassMethodName()
     {
@@ -82,5 +102,10 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         $o->foo = function () { return 'bar'; };
 
         Reflection::invokeMethod(new Dog(), $o, 'foo');
+    }
+
+    public function testGetReflectionClassWithProperty()
+    {
+        // TODO test with invlaid class
     }
 }

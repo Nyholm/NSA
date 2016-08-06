@@ -1,6 +1,6 @@
 {
-    "name": "nyholm/sand-reflection",
-    "description": "A small reflection class to be used in tests, debugging and fixtures. Test private and protected properties and methods in a easy way.",
+    "name": "nyholm/nsa",
+    "description": "See everything and do whatever you want. No privacy rule will stop us. Used in tests, debugging and fixtures to access properties and methods.",
     "license": "MIT",
     "keywords": ["reflection", "test", "debug", "fixture"],
     "homepage": "http://tnyholm.se",
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Nyholm\\SandReflection\\": "src/"
+            "Nyholm\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nyholm\\SandReflection\\Tests\\": "tests/"
+            "Nyholm\\NSA\\Tests\\": "tests/"
         }
     },
     "scripts": {

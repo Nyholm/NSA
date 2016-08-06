@@ -1,9 +1,9 @@
 <?php
 
-namespace Nyholm\SandReflection\tests\Unit;
+namespace Nyholm\NSA\tests\Unit;
 
-use Nyholm\SandReflection\Reflection;
-use Nyholm\SandReflection\Tests\Fixture\Dog;
+use Nyholm\NSA;
+use Nyholm\NSA\Tests\Fixture\Dog;
 
 class InvalidInputTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testIntegerProperty()
     {
-        Reflection::getProperty(1, 'foo');
+        NSA::getProperty(1, 'foo');
     }
 
     /**
@@ -20,7 +20,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayProperty()
     {
-        Reflection::getProperty(array('foo' => 'bar'), 'foo');
+        NSA::getProperty(array('foo' => 'bar'), 'foo');
     }
 
     /**
@@ -31,7 +31,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         $o = new \stdClass();
         $o->foo = 'bar';
 
-        Reflection::getProperty($o, 'foo');
+        NSA::getProperty($o, 'foo');
     }
 
     /**
@@ -39,7 +39,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayPropertyValue()
     {
-        Reflection::getProperty(new Dog(), array('foo' => 'bar'));
+        NSA::getProperty(new Dog(), array('foo' => 'bar'));
     }
 
     /**
@@ -50,7 +50,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         $o = new \stdClass();
         $o->foo = 'bar';
 
-        Reflection::getProperty(new Dog(), $o);
+        NSA::getProperty(new Dog(), $o);
     }
 
     /**
@@ -58,7 +58,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testIntegerMethod()
     {
-        Reflection::invokeMethod(1, 'foo');
+        NSA::invokeMethod(1, 'foo');
     }
 
     /**
@@ -66,7 +66,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayMethod()
     {
-        Reflection::invokeMethod(array('foo' => 'bar'), 'foo');
+        NSA::invokeMethod(array('foo' => 'bar'), 'foo');
     }
 
     /**
@@ -79,7 +79,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
             return 'bar';
         };
 
-        Reflection::invokeMethod($o, 'foo');
+        NSA::invokeMethod($o, 'foo');
     }
 
     /**
@@ -87,7 +87,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testIntegerMethodName()
     {
-        Reflection::invokeMethod(new Dog(), 1);
+        NSA::invokeMethod(new Dog(), 1);
     }
 
     /**
@@ -95,7 +95,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayMethodName()
     {
-        Reflection::invokeMethod(new Dog(), array('foo' => 'bar'));
+        NSA::invokeMethod(new Dog(), array('foo' => 'bar'));
     }
 
     /**
@@ -108,7 +108,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
             return 'bar';
         };
 
-        Reflection::invokeMethod(new Dog(), $o, 'foo');
+        NSA::invokeMethod(new Dog(), $o, 'foo');
     }
 
     /**
@@ -116,7 +116,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReflectionClassWithProperty()
     {
-        Reflection::invokeMethod('Nyholm\SandReflection\Reflection', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
+        NSA::invokeMethod('Nyholm\NSA', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
     }
 
     /**
@@ -124,8 +124,8 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNotStaticPropertyWithoutObject()
     {
-        $class = 'Nyholm\SandReflection\Tests\Fixture\Dog';
-        Reflection::getProperty($class, 'name');
+        $class = 'Nyholm\NSA\Tests\Fixture\Dog';
+        NSA::getProperty($class, 'name');
     }
 
     /**
@@ -133,7 +133,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokeStaticMethodWithoutObject()
     {
-        $class = 'Nyholm\SandReflection\Tests\Fixture\Dog';
-        Reflection::invokeMethod($class, 'bark');
+        $class = 'Nyholm\NSA\Tests\Fixture\Dog';
+        NSA::invokeMethod($class, 'bark');
     }
 }

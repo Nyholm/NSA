@@ -1,9 +1,9 @@
 <?php
 
-namespace Nyholm\SandReflection\Tests\Unit;
+namespace Nyholm\NSA\Tests\Unit;
 
-use Nyholm\SandReflection\Reflection;
-use Nyholm\SandReflection\Tests\Fixture\Dog;
+use Nyholm\NSA;
+use Nyholm\NSA\Tests\Fixture\Dog;
 
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,35 +13,35 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     public function testGetPropertyNotExist()
     {
         $o = new Dog();
-        Reflection::getProperty($o, 'noProperty');
+        NSA::getProperty($o, 'noProperty');
     }
 
     public function testGetPrivateProperty()
     {
         $o = new Dog();
-        $result = Reflection::getProperty($o, 'name');
+        $result = NSA::getProperty($o, 'name');
         $this->assertEquals('initName', $result);
     }
 
     public function testGetProtectedProperty()
     {
         $o = new Dog();
-        $result = Reflection::getProperty($o, 'owner');
+        $result = NSA::getProperty($o, 'owner');
         $this->assertEquals('initOwner', $result);
     }
 
     public function testGetPublicProperty()
     {
         $o = new Dog();
-        $result = Reflection::getProperty($o, 'color');
+        $result = NSA::getProperty($o, 'color');
         $this->assertEquals('initColor', $result);
     }
 
     public function testSetPrivateProperty()
     {
         $o = new Dog();
-        Reflection::setProperty($o, 'name', 'foobar');
-        $result = Reflection::getProperty($o, 'name');
+        NSA::setProperty($o, 'name', 'foobar');
+        $result = NSA::getProperty($o, 'name');
 
         $this->assertEquals('foobar', $result);
     }
@@ -49,46 +49,46 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
     public function testSetProtectedProperty()
     {
         $o = new Dog();
-        Reflection::setProperty($o, 'owner', 'foobar');
-        $result = Reflection::getProperty($o, 'owner');
+        NSA::setProperty($o, 'owner', 'foobar');
+        $result = NSA::getProperty($o, 'owner');
         $this->assertEquals('foobar', $result);
     }
 
     public function testSetPublicProperty()
     {
         $o = new Dog();
-        Reflection::setProperty($o, 'color', 'foobar');
-        $result = Reflection::getProperty($o, 'color');
+        NSA::setProperty($o, 'color', 'foobar');
+        $result = NSA::getProperty($o, 'color');
         $this->assertEquals('foobar', $result);
     }
 
     public function testGetParentPrivateProperty()
     {
         $o = new Dog();
-        $result = Reflection::getProperty($o, 'latinName');
+        $result = NSA::getProperty($o, 'latinName');
         $this->assertEquals('initLatinName', $result);
     }
 
     public function testSetParentPrivateProperty()
     {
         $o = new Dog();
-        Reflection::setProperty($o, 'latinName', 'foobar');
-        $result = Reflection::getProperty($o, 'latinName');
+        NSA::setProperty($o, 'latinName', 'foobar');
+        $result = NSA::getProperty($o, 'latinName');
         $this->assertEquals('foobar', $result);
     }
 
     public function testGetGrandParentPrivateProperty()
     {
         $o = new Dog();
-        $result = Reflection::getProperty($o, 'count');
+        $result = NSA::getProperty($o, 'count');
         $this->assertEquals('initCount', $result);
     }
 
     public function testSetGrandParentPrivateProperty()
     {
         $o = new Dog();
-        Reflection::setProperty($o, 'count', 'foobar');
-        $result = Reflection::getProperty($o, 'count');
+        NSA::setProperty($o, 'count', 'foobar');
+        $result = NSA::getProperty($o, 'count');
         $this->assertEquals('foobar', $result);
     }
 }

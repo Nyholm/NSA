@@ -1,6 +1,6 @@
 <?php
 
-namespace Nyholm\Reflection\Tests\Fixture;
+namespace Nyholm\SandReflection\Tests\Fixture;
 
 class Dog extends Animal
 {

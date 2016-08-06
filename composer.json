@@ -1,5 +1,5 @@
 {
-    "name": "nyholm/reflection-for-your-tests",
+    "name": "nyholm/sand-reflection",
     "description": "A small reflection class to be used in tests, debugging and fixtures. Test private and protected properties and methods in a easy way.",
     "license": "MIT",
     "keywords": ["reflection", "test", "debug", "fixture"],
@@ -19,12 +19,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Nyholm\\Reflection\\": "src/"
+            "Nyholm\\SandReflection\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Nyholm\\Reflection\\Tests\\": "tests/"
+            "Nyholm\\SandReflection\\Tests\\": "tests/"
         }
     },
     "scripts": {

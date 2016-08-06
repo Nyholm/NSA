@@ -1,9 +1,9 @@
 <?php
 
-namespace Nyholm\Reflection\tests\Unit;
+namespace Nyholm\SandReflection\tests\Unit;
 
-use Nyholm\Reflection\Reflection;
-use Nyholm\Reflection\Tests\Fixture\Dog;
+use Nyholm\SandReflection\Reflection;
+use Nyholm\SandReflection\Tests\Fixture\Dog;
 
 class InvalidInputTest extends \PHPUnit_Framework_TestCase
 {
@@ -116,7 +116,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetReflectionClassWithProperty()
     {
-        Reflection::invokeMethod('Nyholm\Reflection\Reflection', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
+        Reflection::invokeMethod('Nyholm\SandReflection\Reflection', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
     }
 
     /**
@@ -124,7 +124,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNotStaticPropertyWithoutObject()
     {
-        $class = 'Nyholm\Reflection\Tests\Fixture\Dog';
+        $class = 'Nyholm\SandReflection\Tests\Fixture\Dog';
         Reflection::getProperty($class, 'name');
     }
 
@@ -133,7 +133,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokeStaticMethodWithoutObject()
     {
-        $class = 'Nyholm\Reflection\Tests\Fixture\Dog';
+        $class = 'Nyholm\SandReflection\Tests\Fixture\Dog';
         Reflection::invokeMethod($class, 'bark');
     }
 }

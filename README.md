@@ -9,7 +9,9 @@
 
 This small class helps you to test your private and protected properties and methods. One could argue
 that one never should test private methods but sometimes it just makes the test code a lot cleaner an easier to write
-and understand. 
+and understand. This library is all about DX. 
+
+Why "Sand"? Because sand will get in everywhere.  
 
 ## Usage
 

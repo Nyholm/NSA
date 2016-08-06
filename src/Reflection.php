@@ -1,6 +1,6 @@
 <?php
 
-namespace Nyholm\Reflection;
+namespace Nyholm\SandReflection;
 
 use Webmozart\Assert\Assert;
 

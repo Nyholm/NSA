@@ -1,9 +1,9 @@
 <?php
 
-namespace Nyholm\Reflection\Tests\Unit;
+namespace Nyholm\SandReflection\Tests\Unit;
 
-use Nyholm\Reflection\Reflection;
-use Nyholm\Reflection\Tests\Fixture\Dog;
+use Nyholm\SandReflection\Reflection;
+use Nyholm\SandReflection\Tests\Fixture\Dog;
 
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {

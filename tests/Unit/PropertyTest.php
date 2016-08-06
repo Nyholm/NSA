@@ -7,6 +7,15 @@ use Nyholm\Reflection\Tests\Fixture\Dog;
 
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \LogicException
+     */
+    public function testGetPropertyNotExist()
+    {
+        $o = new Dog();
+        Reflection::getProperty($o, 'noProperty');
+    }
+
     public function testGetPrivateProperty()
     {
         $o = new Dog();

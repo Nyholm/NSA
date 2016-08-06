@@ -14,30 +14,30 @@ class Reflection
     /**
      * Get a property of an object.
      *
-     * @param object|string $objectOrString
+     * @param object|string $objectOrClass
      * @param string $propertyName
      *
      * @return mixed
      *
      * @throws \InvalidArgumentException
      */
-    public static function getProperty($objectOrString, $propertyName)
+    public static function getProperty($objectOrClass, $propertyName)
     {
-        return self::getAccessibleReflectionProperty($objectOrString, $propertyName)->getValue($objectOrString);
+        return self::getAccessibleReflectionProperty($objectOrClass, $propertyName)->getValue($objectOrClass);
     }
 
     /**
      * Set a property to an object.
      *
-     * @param object|string $objectOrString
+     * @param object|string $objectOrClass
      * @param string $propertyName
      * @param mixed  $value
      *
      * @throws \InvalidArgumentException
      */
-    public static function setProperty($objectOrString, $propertyName, $value)
+    public static function setProperty($objectOrClass, $propertyName, $value)
     {
-        self::getAccessibleReflectionProperty($objectOrString, $propertyName)->setValue($objectOrString, $value);
+        self::getAccessibleReflectionProperty($objectOrClass, $propertyName)->setValue($objectOrClass, $value);
     }
 
     /**
@@ -66,6 +66,10 @@ class Reflection
 
         if (!is_object($objectOrClass) && !is_string($objectOrClass)) {
             throw new \InvalidArgumentException(sprintf('Can not invoke method of a non object. Variable of type "%s" was given.', gettype($objectOrClass)));
+        }
+
+        if (is_string($objectOrClass)) {
+            Assert::classExists($objectOrClass, 'Coud not find class "%s"');
         }
 
         $refl = new \ReflectionClass($objectOrClass);
@@ -108,7 +112,7 @@ class Reflection
     /**
      * Get an reflection property that you can access directly.
      *
-     * @param object|string $objectOrString
+     * @param object|string $objectOrClass
      * @param string $propertyName
      *
      * @return \ReflectionProperty
@@ -116,17 +120,19 @@ class Reflection
      * @throws \InvalidArgumentException
      * @throws \LogicException if the property is not found on the object
      */
-    protected static function getAccessibleReflectionProperty($objectOrString, $propertyName)
+    protected static function getAccessibleReflectionProperty($objectOrClass, $propertyName)
     {
         Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
-        if (!is_string($objectOrString)) {
-            Assert::object($objectOrString, 'Can not get a property of a non object. Variable of type "%s" was given.');
-            Assert::notInstanceOf($objectOrString, '\stdClass', 'Can not get a property of \stdClass.');
+        if (is_string($objectOrClass)) {
+            Assert::classExists($objectOrClass, 'Coud not find class "%s"');
+        } else {
+            Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
+            Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a property of \stdClass.');
         }
 
-        if (null === $refl = self::getReflectionClassWithProperty($objectOrString, $propertyName)) {
-            throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, get_class($objectOrString)));
+        if (null === $refl = self::getReflectionClassWithProperty($objectOrClass, $propertyName)) {
+            throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, get_class($objectOrClass)));
         }
 
         $property = $refl->getProperty($propertyName);

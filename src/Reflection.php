@@ -23,7 +23,7 @@ class Reflection
      */
     public static function getProperty($objectOrClass, $propertyName)
     {
-        return self::getAccessibleReflectionProperty($objectOrClass, $propertyName)->getValue($objectOrClass);
+        return static::getAccessibleReflectionProperty($objectOrClass, $propertyName)->getValue($objectOrClass);
     }
 
     /**
@@ -37,7 +37,7 @@ class Reflection
      */
     public static function setProperty($objectOrClass, $propertyName, $value)
     {
-        self::getAccessibleReflectionProperty($objectOrClass, $propertyName)->setValue($objectOrClass, $value);
+        static::getAccessibleReflectionProperty($objectOrClass, $propertyName)->setValue($objectOrClass, $value);
     }
 
     /**
@@ -130,7 +130,7 @@ class Reflection
             $class = get_class($objectOrClass);
         }
 
-        if (null === $refl = self::getReflectionClassWithProperty($class, $propertyName)) {
+        if (null === $refl = static::getReflectionClassWithProperty($class, $propertyName)) {
             throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, $class));
         }
 

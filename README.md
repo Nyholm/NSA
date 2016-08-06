@@ -5,7 +5,7 @@
 [![Build Status](https://img.shields.io/travis/Nyholm/reflection-for-your-tests.svg?style=flat-square)](https://travis-ci.org/Nyholm/reflection-for-your-tests)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Nyholm/reflection-for-your-tests.svg?style=flat-square)](https://scrutinizer-ci.com/g/Nyholm/reflection-for-your-tests)
 [![Quality Score](https://img.shields.io/scrutinizer/g/Nyholm/reflection-for-your-tests.svg?style=flat-square)](https://scrutinizer-ci.com/g/Nyholm/reflection-for-your-tests)
-[![Total Downloads](https://img.shields.io/packagist/dt/Nyholm/reflection-for-your-tests.svg?style=flat-square)](https://packagist.org/packages/Nyholm/reflection-for-your-tests)
+[![Total Downloads](https://img.shields.io/packagist/dt/nyholm/reflection-for-your-tests.svg?style=flat-square)](https://packagist.org/packages/nyholm/reflection-for-your-tests)
 
 This small class helps you to test your private and protected properties and methods. One could argue
 that one never should test private methods but sometimes it just makes the test code a lot cleaner an easier to write

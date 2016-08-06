@@ -118,4 +118,22 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     {
         Reflection::invokeMethod('Nyholm\Reflection\Reflection', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetNotStaticPropertyWithoutObject()
+    {
+        $class = 'Nyholm\Reflection\Tests\Fixture\Dog';
+        Reflection::getProperty($class, 'name');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvokeStaticMethodWithoutObject()
+    {
+        $class = 'Nyholm\Reflection\Tests\Fixture\Dog';
+        Reflection::invokeMethod($class, 'bark');
+    }
 }

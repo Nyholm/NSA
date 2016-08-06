@@ -12,7 +12,8 @@ use Webmozart\Assert\Assert;
 class Reflection
 {
     /**
-     * Get a property of an object.
+     * Get a property of an object. If the property is static you may provide the class name (including namespace)
+     * instead of an object.
      *
      * @param object|string $objectOrClass
      * @param string        $propertyName
@@ -20,6 +21,7 @@ class Reflection
      * @return mixed
      *
      * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public static function getProperty($objectOrClass, $propertyName)
     {
@@ -27,13 +29,15 @@ class Reflection
     }
 
     /**
-     * Set a property to an object.
+     * Set a property to an object. If the property is static you may provide the class name (including namespace)
+     * instead of an object.
      *
      * @param object|string $objectOrClass
      * @param string        $propertyName
      * @param mixed         $value
      *
      * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public static function setProperty($objectOrClass, $propertyName, $value)
     {
@@ -41,15 +45,17 @@ class Reflection
     }
 
     /**
-     * Invoke a method on a object and get the return values.
+     * Invoke a method on a object and get the return values. If the method is static you may provide the class
+     * name (including namespace) instead of an object.
      *
      * @param object|string $objectOrClass
      * @param string        $methodName
-     * @param mixed ...$params
+     * @param mixed         ...$params
      *
      * @return mixed
      *
      * @throws \InvalidArgumentException
+     * @throws \LogicException
      */
     public static function invokeMethod()
     {
@@ -77,8 +83,15 @@ class Reflection
         $method = $refl->getMethod($methodName);
         $method->setAccessible(true);
 
-        // If it is a static call we should pass null as first parameter.
-        return $method->invokeArgs(is_string($objectOrClass) ? null : $objectOrClass, $arguments);
+        if ($method->isStatic()) {
+            // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
+            $object = null;
+        } else {
+            $object = $objectOrClass;
+            Assert::object($objectOrClass, 'Can not access non-static method without an object.');
+        }
+
+        return $method->invokeArgs($object, $arguments);
     }
 
     /**
@@ -88,6 +101,8 @@ class Reflection
      * @param string $propertyName
      *
      * @return \ReflectionClass|null
+     *
+     * @throws \InvalidArgumentException
      */
     protected static function getReflectionClassWithProperty($class, $propertyName)
     {
@@ -136,6 +151,10 @@ class Reflection
 
         $property = $refl->getProperty($propertyName);
         $property->setAccessible(true);
+
+        if (!$property->isStatic()) {
+            Assert::object($objectOrClass, 'Can not access non-static property without an object.');
+        }
 
         return $property;
     }

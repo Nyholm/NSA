@@ -23,13 +23,21 @@ class Reflection
      */
     public static function getProperty($object, $propertyName)
     {
-        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
-
-        if (is_string($object)) {
-            self::getStaticProperty($object, $propertyName)->getValue();
+        if (!is_string($object)) {
+            return self::getAccessibleReflectionProperty($object, $propertyName)->getValue($object);
         }
 
-        return self::getAccessibleReflectionProperty($object, $propertyName)->getValue($object);
+        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
+        Assert::classExists($object, 'The class %s does not exist');
+
+        if (null === $refl = self::getReflectionClassWithStaticProperty($object, $propertyName)) {
+            throw new \LogicException(sprintf('The static property %s does not exist on %s or any of its parents.', $propertyName, $class));
+        }
+
+        $prop = $refl->getProperty($propertyName);
+        $prop->setAccessible(true);
+
+        return $prop->getValue(null);
     }
 
     /**
@@ -43,19 +51,28 @@ class Reflection
      */
     public static function setProperty($object, $propertyName, $value)
     {
-        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
+        if (!is_string($object)) {
+            self::getAccessibleReflectionProperty($object, $propertyName)->setValue($object, $value);
 
-        if (is_string($object)) {
-            self::getStaticProperty($object, $propertyName)->getValue();
+            return;
         }
 
-        return self::getAccessibleReflectionProperty($object, $propertyName)->setValue($object, $value);
+        Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
+        Assert::classExists($object, 'The class %s does not exist');
+
+        if (null === $refl = self::getReflectionClassWithStaticProperty($object, $propertyName)) {
+            throw new \LogicException(sprintf('The static property %s does not exist on %s or any of its parents.', $propertyName, $object));
+        }
+
+        $prop = $refl->getProperty($propertyName);
+        $prop->setAccessible(true);
+        $prop->setValue(null, $value);
     }
 
     /**
      * Invoke a method on a object and get the return values.
      *
-     * @param object $object
+     * @param object|string $objectOrClass
      * @param string $methodName
      * @param mixed ...$params
      *
@@ -70,22 +87,29 @@ class Reflection
         }
 
         $arguments = func_get_args();
-        $object = array_shift($arguments);
+        $objectOrClass = array_shift($arguments);
         $methodName = array_shift($arguments);
 
-        Assert::object($object, 'Can not invoke method of a non object. Variable of type "%s" was given.');
-        Assert::notInstanceOf($object, '\stdClass', 'Can not get a method of \stdClass.');
+        Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a method of \stdClass.');
         Assert::string($methodName, 'Method name has to be a string. Variable of type "%s" was given.');
 
-        $refl = new \ReflectionClass($object);
+        if (!is_object($objectOrClass) && !is_string($objectOrClass)) {
+            throw new \InvalidArgumentException(sprintf('Can not invoke method of a non object. Variable of type "%s" was given.', gettype($objectOrClass)));
+        }
+
+        $refl = new \ReflectionClass($objectOrClass);
         if (!$refl->hasMethod($methodName)) {
-            throw new \LogicException(sprintf('The method %s::%s does not exist.', get_class($object), $methodName));
+            throw new \LogicException(sprintf('The method %s::%s does not exist.', get_class($objectOrClass), $methodName));
         }
 
         $method = $refl->getMethod($methodName);
         $method->setAccessible(true);
 
-        return $method->invokeArgs($object, $arguments);
+        if (is_string($objectOrClass)) {
+            $objectOrClass = null;
+        }
+
+        return $method->invokeArgs($objectOrClass, $arguments);
     }
 
     /**
@@ -108,6 +132,29 @@ class Reflection
         }
 
         return self::getReflectionClassWithProperty(get_parent_class($objectOrClass), $propertyName);
+    }
+
+    /**
+     * Get a reflection class that has this static property.
+     *
+     * @param object|string  $objectOrClass
+     * @param string $propertyName
+     *
+     * @return \ReflectionClass|null
+     */
+    protected static function getReflectionClassWithStaticProperty($class, $propertyName)
+    {
+        if (!is_string($class)) {
+            return;
+        }
+
+        $refl = new \ReflectionClass($class);
+        $properties = $refl->getStaticProperties();
+        if (isset($properties[$propertyName])) {
+            return $refl;
+        }
+
+        return self::getReflectionClassWithStaticProperty(get_parent_class($class), $propertyName);
     }
 
     /**

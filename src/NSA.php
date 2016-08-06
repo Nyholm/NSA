@@ -83,12 +83,11 @@ class NSA
         $method = $refl->getMethod($methodName);
         $method->setAccessible(true);
 
-        if ($method->isStatic()) {
-            // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
-            $object = null;
-        } else {
+        // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
+        $object = null;
+        if (!$method->isStatic()) {
             $object = $objectOrClass;
-            Assert::object($objectOrClass, 'Can not access non-static method without an object.');
+            Assert::object($object, 'Can not access non-static method without an object.');
         }
 
         return $method->invokeArgs($object, $arguments);

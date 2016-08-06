@@ -61,15 +61,12 @@ class Reflection
         $objectOrClass = array_shift($arguments);
         $methodName = array_shift($arguments);
 
-        Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a method of \stdClass.');
         Assert::string($methodName, 'Method name has to be a string. Variable of type "%s" was given.');
-
-        if (!is_object($objectOrClass) && !is_string($objectOrClass)) {
-            throw new \InvalidArgumentException(sprintf('Can not invoke method of a non object. Variable of type "%s" was given.', gettype($objectOrClass)));
-        }
-
         if (is_string($objectOrClass)) {
             Assert::classExists($objectOrClass, 'Could not find class "%s"');
+        } else {
+            Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a method of \stdClass.');
+            Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
         }
 
         $refl = new \ReflectionClass($objectOrClass);
@@ -80,11 +77,8 @@ class Reflection
         $method = $refl->getMethod($methodName);
         $method->setAccessible(true);
 
-        if (is_string($objectOrClass)) {
-            $objectOrClass = null;
-        }
-
-        return $method->invokeArgs($objectOrClass, $arguments);
+        // If it is a static call we should pass null as first parameter.
+        return $method->invokeArgs(is_string($objectOrClass) ? null : $objectOrClass, $arguments);
     }
 
     /**

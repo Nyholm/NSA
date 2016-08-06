@@ -46,7 +46,7 @@ final class Reflection
     public static function invokeMethod()
     {
         if (func_num_args() < 2) {
-            throw new \LogicException(sprintf('The method "%s"::invokeMethod need at least two arguments', self::class));
+            throw new \LogicException('The method Reflection::invokeMethod need at least two arguments');
         }
 
         $arguments = func_get_args();

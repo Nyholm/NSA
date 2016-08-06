@@ -22,12 +22,17 @@ $result = Reflection::invokeMethod($object, 'doAction', 'jump', '1 meter');
 
 echo $name; // "Foobar"
 echo $result; // "Dog just did 'jump' for 1 meter"
+
+// Access static properties and methods
+$age = Reflection::getProperty('\Dog', 'age');
+echo $age; // 12
 ```
 
 ```php
 class Dog
 {
     private $name = 'unnamed';
+    private static $age = 12;
 
     private function doAction($action, $parameter)
     {

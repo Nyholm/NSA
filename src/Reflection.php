@@ -123,7 +123,6 @@ class Reflection
         Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
         if (is_string($objectOrClass)) {
-            Assert::classExists($objectOrClass, 'Could not find class "%s"');
             $class = $objectOrClass;
         } else {
             Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');

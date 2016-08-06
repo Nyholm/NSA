@@ -7,7 +7,7 @@ namespace Nyholm\Reflection;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-final class Reflection
+class Reflection
 {
     /**
      * Get a property of an object.

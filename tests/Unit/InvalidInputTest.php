@@ -33,7 +33,6 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         Reflection::getProperty($o, 'foo');
     }
 
-
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -104,8 +103,11 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
         Reflection::invokeMethod(new Dog(), $o, 'foo');
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testGetReflectionClassWithProperty()
     {
-        // TODO test with invlaid class
+        Reflection::invokeMethod('Nyholm\Reflection\Reflection', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
     }
 }

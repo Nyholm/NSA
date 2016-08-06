@@ -15,7 +15,7 @@ class Reflection
      * Get a property of an object.
      *
      * @param object|string $objectOrClass
-     * @param string $propertyName
+     * @param string        $propertyName
      *
      * @return mixed
      *
@@ -30,8 +30,8 @@ class Reflection
      * Set a property to an object.
      *
      * @param object|string $objectOrClass
-     * @param string $propertyName
-     * @param mixed  $value
+     * @param string        $propertyName
+     * @param mixed         $value
      *
      * @throws \InvalidArgumentException
      */
@@ -44,7 +44,7 @@ class Reflection
      * Invoke a method on a object and get the return values.
      *
      * @param object|string $objectOrClass
-     * @param string $methodName
+     * @param string        $methodName
      * @param mixed ...$params
      *
      * @return mixed
@@ -69,7 +69,7 @@ class Reflection
         }
 
         if (is_string($objectOrClass)) {
-            Assert::classExists($objectOrClass, 'Coud not find class "%s"');
+            Assert::classExists($objectOrClass, 'Could not find class "%s"');
         }
 
         $refl = new \ReflectionClass($objectOrClass);
@@ -90,49 +90,55 @@ class Reflection
     /**
      * Get a reflection class that has this property.
      *
-     * @param object|string  $objectOrClass
+     * @param string $class
      * @param string $propertyName
      *
      * @return \ReflectionClass|null
      */
-    protected static function getReflectionClassWithProperty($objectOrClass, $propertyName)
+    protected static function getReflectionClassWithProperty($class, $propertyName)
     {
-        if (!is_object($objectOrClass) && !is_string($objectOrClass)) {
-            return;
-        }
+        Assert::string($class, 'First argument to Reflection::getReflectionClassWithProperty must be string. Variable of type "%s" was given.');
+        Assert::classExists($class, 'Could not find class "%s"');
 
-        $refl = new \ReflectionClass($objectOrClass);
+        $refl = new \ReflectionClass($class);
         if ($refl->hasProperty($propertyName)) {
             return $refl;
         }
 
-        return self::getReflectionClassWithProperty(get_parent_class($objectOrClass), $propertyName);
+        if (false === $parent = get_parent_class($class)) {
+            // No more parents
+            return;
+        }
+
+        return self::getReflectionClassWithProperty($parent, $propertyName);
     }
 
     /**
      * Get an reflection property that you can access directly.
      *
      * @param object|string $objectOrClass
-     * @param string $propertyName
+     * @param string        $propertyName
      *
      * @return \ReflectionProperty
      *
      * @throws \InvalidArgumentException
-     * @throws \LogicException if the property is not found on the object
+     * @throws \LogicException           if the property is not found on the object
      */
     protected static function getAccessibleReflectionProperty($objectOrClass, $propertyName)
     {
         Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
         if (is_string($objectOrClass)) {
-            Assert::classExists($objectOrClass, 'Coud not find class "%s"');
+            Assert::classExists($objectOrClass, 'Could not find class "%s"');
+            $class = $objectOrClass;
         } else {
             Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
             Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a property of \stdClass.');
+            $class = get_class($objectOrClass);
         }
 
-        if (null === $refl = self::getReflectionClassWithProperty($objectOrClass, $propertyName)) {
-            throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, get_class($objectOrClass)));
+        if (null === $refl = self::getReflectionClassWithProperty($class, $propertyName)) {
+            throw new \LogicException(sprintf('The property %s does not exist on %s or any of its parents.', $propertyName, $class));
         }
 
         $property = $refl->getProperty($propertyName);

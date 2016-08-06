@@ -33,7 +33,8 @@ class Animal extends Thing
         return 'foobar';
     }
 
-    public static function reset() {
+    public static function reset()
+    {
         self::$age = 'initialAge';
         self::$birthday = 'initialBirthday';
         self::$eaten = false;

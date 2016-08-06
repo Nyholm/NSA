@@ -31,14 +31,12 @@ class Dog
 
     private function doAction($action, $parameter)
     {
-        return sprintf('Dog just did '%s' for %s', $action, $parameter);
+        return sprintf("Dog just did '%s' for %s", $action, $parameter);
     }
 }
 ```
 
 ## Install
-
-Via Composer
 
 ``` bash
 $ composer require Nyholm/reflection-for-your-tests

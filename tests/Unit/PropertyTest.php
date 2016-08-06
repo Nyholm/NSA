@@ -5,7 +5,7 @@ namespace Nyholm\Reflection\Tests\Unit;
 use Nyholm\Reflection\Reflection;
 use Nyholm\Reflection\Tests\Fixture\Dog;
 
-class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
+class PropertyTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetPrivateProperty()
     {

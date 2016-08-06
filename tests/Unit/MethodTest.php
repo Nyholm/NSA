@@ -5,7 +5,7 @@ namespace Nyholm\Reflection\tests\Unit;
 use Nyholm\Reflection\Reflection;
 use Nyholm\Reflection\Tests\Fixture\Dog;
 
-class CatchNameReflectionMethodTest extends \PHPUnit_Framework_TestCase
+class MethodTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \LogicException

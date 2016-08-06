@@ -24,6 +24,15 @@ class MethodTest extends \PHPUnit_Framework_TestCase
         Reflection::invokeMethod($o);
     }
 
+    /**
+     * @expectedException \LogicException
+     */
+    public function testInvokeMethodNotExist()
+    {
+        $o = new Dog();
+        Reflection::invokeMethod($o, 'noMethod');
+    }
+
     public function testInvokePrivateSetter()
     {
         $o = new Dog();

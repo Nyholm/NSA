@@ -83,12 +83,11 @@ class NSA
         $method = $refl->getMethod($methodName);
         $method->setAccessible(true);
 
-        if ($method->isStatic()) {
-            // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
-            $object = null;
-        } else {
+        // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
+        $object = null;
+        if (!$method->isStatic()) {
             $object = $objectOrClass;
-            Assert::object($objectOrClass, 'Can not access non-static method without an object.');
+            Assert::object($object, 'Can not access non-static method without an object.');
         }
 
         return $method->invokeArgs($object, $arguments);
@@ -137,9 +136,8 @@ class NSA
     {
         Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
-        if (is_string($objectOrClass)) {
-            $class = $objectOrClass;
-        } else {
+        $class = $objectOrClass;
+        if (!is_string($objectOrClass)) {
             Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
             Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a property of \stdClass.');
             $class = get_class($objectOrClass);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Nyholm\Reflection;
+namespace Nyholm;
 
 use Webmozart\Assert\Assert;
 
@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
  *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Reflection
+class NSA
 {
     /**
      * Get a property of an object. If the property is static you may provide the class name (including namespace)

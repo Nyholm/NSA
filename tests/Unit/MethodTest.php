@@ -1,9 +1,9 @@
 <?php
 
-namespace Nyholm\Reflection\tests\Unit;
+namespace Nyholm\NSA\tests\Unit;
 
-use Nyholm\Reflection\Reflection;
-use Nyholm\Reflection\Tests\Fixture\Dog;
+use Nyholm\NSA;
+use Nyholm\NSA\Tests\Fixture\Dog;
 
 class MethodTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvokeMethodNoArguments()
     {
-        Reflection::invokeMethod();
+        NSA::invokeMethod();
     }
 
     /**
@@ -21,7 +21,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
     public function testInvokeMethodOneArguments()
     {
         $o = new Dog();
-        Reflection::invokeMethod($o);
+        NSA::invokeMethod($o);
     }
 
     /**
@@ -30,14 +30,14 @@ class MethodTest extends \PHPUnit_Framework_TestCase
     public function testInvokeMethodNotExist()
     {
         $o = new Dog();
-        Reflection::invokeMethod($o, 'noMethod');
+        NSA::invokeMethod($o, 'noMethod');
     }
 
     public function testInvokePrivateSetter()
     {
         $o = new Dog();
         $this->assertEquals('initState', $o->getState());
-        $result = Reflection::invokeMethod($o, 'setState', 'foo', 'bar');
+        $result = NSA::invokeMethod($o, 'setState', 'foo', 'bar');
         $this->assertNull($result);
         $this->assertEquals('foo - bar', $o->getState());
     }
@@ -45,7 +45,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
     public function testInvokePrivateGetter()
     {
         $o = new Dog();
-        $result = Reflection::invokeMethod($o, 'bark');
+        $result = NSA::invokeMethod($o, 'bark');
         $this->assertEquals('woff', $result);
     }
 
@@ -53,7 +53,7 @@ class MethodTest extends \PHPUnit_Framework_TestCase
     {
         $o = new Dog();
         $this->assertTrue($o->alive);
-        Reflection::invokeMethod($o, 'kill');
+        NSA::invokeMethod($o, 'kill');
         $this->assertFalse($o->alive);
     }
 }

@@ -7,14 +7,19 @@ use Nyholm\Reflection\Tests\Fixture\Dog;
 
 class CatchNameReflectionMethodTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @expectedException \LogicException
+     */
     public function testInvokeMethodNoArguments()
     {
-        $this->expectException(\LogicException::class);
         Reflection::invokeMethod();
     }
+
+    /**
+     * @expectedException \LogicException
+     */
     public function testInvokeMethodOneArguments()
     {
-        $this->expectException(\LogicException::class);
         $o = new Dog();
         Reflection::invokeMethod($o);
     }

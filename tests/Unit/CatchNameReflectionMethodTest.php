@@ -32,12 +32,14 @@ class CatchNameReflectionMethodTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($result);
         $this->assertEquals('foo - bar', $o->getState());
     }
+
     public function testInvokePrivateGetter()
     {
         $o = new Dog();
         $result = Reflection::invokeMethod($o, 'bark');
         $this->assertEquals('woff', $result);
     }
+
     public function testInvokeParentMethod()
     {
         $o = new Dog();

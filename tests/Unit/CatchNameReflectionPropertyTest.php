@@ -13,18 +13,21 @@ class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
         $result = Reflection::getProperty($o, 'name');
         $this->assertEquals('initName', $result);
     }
+
     public function testGetProtectedProperty()
     {
         $o = new Dog();
         $result = Reflection::getProperty($o, 'owner');
         $this->assertEquals('initOwner', $result);
     }
+
     public function testGetPublicProperty()
     {
         $o = new Dog();
         $result = Reflection::getProperty($o, 'color');
         $this->assertEquals('initColor', $result);
     }
+
     public function testSetPrivateProperty()
     {
         $o = new Dog();
@@ -33,6 +36,7 @@ class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foobar', $result);
     }
+
     public function testSetProtectedProperty()
     {
         $o = new Dog();
@@ -40,6 +44,7 @@ class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
         $result = Reflection::getProperty($o, 'owner');
         $this->assertEquals('foobar', $result);
     }
+
     public function testSetPublicProperty()
     {
         $o = new Dog();
@@ -54,6 +59,7 @@ class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
         $result = Reflection::getProperty($o, 'latinName');
         $this->assertEquals('initLatinName', $result);
     }
+
     public function testSetParentPrivateProperty()
     {
         $o = new Dog();
@@ -61,12 +67,14 @@ class CatchNameReflectionPropertyTest extends \PHPUnit_Framework_TestCase
         $result = Reflection::getProperty($o, 'latinName');
         $this->assertEquals('foobar', $result);
     }
+
     public function testGetGrandParentPrivateProperty()
     {
         $o = new Dog();
         $result = Reflection::getProperty($o, 'count');
         $this->assertEquals('initCount', $result);
     }
+
     public function testSetGrandParentPrivateProperty()
     {
         $o = new Dog();

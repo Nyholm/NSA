@@ -136,9 +136,8 @@ class NSA
     {
         Assert::string($propertyName, 'Property name must be a string. Variable of type "%s" was given.');
 
-        if (is_string($objectOrClass)) {
-            $class = $objectOrClass;
-        } else {
+        $class = $objectOrClass;
+        if (!is_string($objectOrClass)) {
             Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
             Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a property of \stdClass.');
             $class = get_class($objectOrClass);

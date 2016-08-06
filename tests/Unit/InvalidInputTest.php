@@ -14,6 +14,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     {
         Reflection::getProperty(1, 'foo');
     }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -59,6 +60,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     {
         Reflection::invokeMethod(1, 'foo');
     }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -73,10 +75,13 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     public function testStdClassMethod()
     {
         $o = new \stdClass();
-        $o->foo = function () { return 'bar'; };
+        $o->foo = function () {
+            return 'bar';
+        };
 
         Reflection::invokeMethod($o, 'foo');
     }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -84,6 +89,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     {
         Reflection::invokeMethod(new Dog(), 1);
     }
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -98,7 +104,9 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
     public function testStdClassMethodName()
     {
         $o = new \stdClass();
-        $o->foo = function () { return 'bar'; };
+        $o->foo = function () {
+            return 'bar';
+        };
 
         Reflection::invokeMethod(new Dog(), $o, 'foo');
     }

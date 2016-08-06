@@ -8,7 +8,7 @@ class Animal extends Thing
 
     public $alive = true;
 
-    private function setState($a)
+    private function setState($a, $b)
     {
         $this->state = 'Animal set state: '.$a;
     }

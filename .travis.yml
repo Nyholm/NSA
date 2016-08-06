@@ -7,7 +7,6 @@ cache:
         - $HOME/.composer/cache/files
 
 php:
-    - 5.2
     - 5.3
     - 5.4
     - 5.5
@@ -25,8 +24,6 @@ branches:
         - /^analysis-.*$/
 
 matrix:
-    allow_failures:
-        - php: hhvm
     fast_finish: true
     include:
         - php: 7.0

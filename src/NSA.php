@@ -156,4 +156,37 @@ class NSA
 
         return $property;
     }
+
+    /**
+     * Get all property names on a class or object
+     *
+     * @param object|string $objectOrClass
+     *
+     * @return array of strings
+     *
+     * @throws \InvalidArgumentException
+     */
+    public static function getProperties($objectOrClass)
+    {
+
+        $class = $objectOrClass;
+        if (!is_string($objectOrClass)) {
+            Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
+            Assert::notInstanceOf($objectOrClass, '\stdClass', 'Can not get a property of \stdClass.');
+            $class = get_class($objectOrClass);
+        }
+
+        $refl = new \ReflectionClass($class);
+        $properties = $refl->getProperties();
+
+        // check parents
+        while (false !== $parent = get_parent_class($class)) {
+            $properties = array_merge($properties, (new \ReflectionClass($parent))->getProperties());
+            $class = $parent;
+        }
+
+        return array_map(function($reflectionProperty) {
+            return $reflectionProperty->name;
+        }, $properties);
+    }
 }

@@ -168,7 +168,6 @@ class NSA
      */
     public static function getProperties($objectOrClass)
     {
-
         $class = $objectOrClass;
         if (!is_string($objectOrClass)) {
             Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');

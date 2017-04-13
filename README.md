@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/release/Nyholm/NSA.svg?style=flat-square)](https://github.com/Nyholm/NSA/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/Nyholm/NSA.svg?style=flat-square)](https://travis-ci.org/Nyholm/NSA)
+[![Build Status](https://img.shields.io/travis/Nyholm/NSA/master.svg?style=flat-square)](https://travis-ci.org/Nyholm/NSA)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/Nyholm/NSA.svg?style=flat-square)](https://scrutinizer-ci.com/g/Nyholm/NSA)
 [![Quality Score](https://img.shields.io/scrutinizer/g/Nyholm/NSA.svg?style=flat-square)](https://scrutinizer-ci.com/g/Nyholm/NSA)
 [![Total Downloads](https://img.shields.io/packagist/dt/nyholm/nsa.svg?style=flat-square)](https://packagist.org/packages/nyholm/nsa)

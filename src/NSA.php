@@ -180,7 +180,8 @@ class NSA
 
         // check parents
         while (false !== $parent = get_parent_class($class)) {
-            $properties = array_merge($properties, (new \ReflectionClass($parent))->getProperties());
+            $parentRefl = new \ReflectionClass($parent);
+            $properties = array_merge($properties, $parentRefl->getProperties());
             $class = $parent;
         }
 

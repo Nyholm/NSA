@@ -8,7 +8,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/nyholm/nsa.svg?style=flat-square)](https://packagist.org/packages/nyholm/nsa)
 
 This small class helps you to test your private and protected properties and methods. One could argue that you never 
-should test private methods but sometimes it just makes the test code a lot cleaner an easier to write
+should test private methods but sometimes it just makes the test code a lot cleaner and easier to write
 and understand. This library is all about DX. 
 
 

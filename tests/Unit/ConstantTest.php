@@ -16,10 +16,16 @@ class ConstantTest extends \PHPUnit_Framework_TestCase
         NSA::getConstant($o, 'INEXISTENT_CONSTANT');
     }
 
-    public function testGetsPrivateConstant()
+    public function testGetsPrivateConstantByObject()
     {
         $o = new Dog();
         $result = NSA::getConstant($o, 'PRIVATE_CONSTANT');
+        $this->assertEquals('initConstant', $result);
+    }
+
+    public function testGetsPrivateConstantByClassName()
+    {
+        $result = NSA::getConstant(Dog::class, 'PRIVATE_CONSTANT');
         $this->assertEquals('initConstant', $result);
     }
 }

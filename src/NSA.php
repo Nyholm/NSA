@@ -12,6 +12,33 @@ use Webmozart\Assert\Assert;
 class NSA
 {
     /**
+     * Get a constant of an object. You may provide the class name (including namespace) instead of an object.
+     *
+     * @param object|string $objectOrClass
+     * @param string        $constantName
+     *
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     * @throws \LogicException
+     */
+    public static function getConstant($objectOrClass, $constantName)
+    {
+        if (!is_string($objectOrClass)) {
+            Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
+            $class = get_class($objectOrClass);
+        }
+
+        $refl = static::getReflectionClassWithConstant($class, $constantName);
+
+        if (null === $refl) {
+            throw new \LogicException(sprintf('The constant %s does not exist on %s or any of its parents.', $constantName, $class));
+        }
+
+        return $refl->getConstant($constantName);
+    }
+
+    /**
      * Get a property of an object. If the property is static you may provide the class name (including namespace)
      * instead of an object.
      *
@@ -93,6 +120,33 @@ class NSA
         return $method->invokeArgs($object, $arguments);
     }
 
+    /**
+     * Get a reflection class that has this constant.
+     *
+     * @param string $class
+     * @param string $constantName
+     *
+     * @return \ReflectionClass|null
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected static function getReflectionClassWithConstant($class, $constantName)
+    {
+        Assert::string($class, 'First argument to Reflection::getReflectionClassWithConstant must be string. Variable of type "%s" was given.');
+        Assert::classExists($class, 'Could not find class "%s"');
+
+        $refl = new \ReflectionClass($class);
+        if ($refl->hasConstant($constantName)) {
+            return $refl;
+        }
+
+        if (false === $parent = get_parent_class($class)) {
+            // No more parents
+            return;
+        }
+
+        return self::getReflectionClassWithConstant($parent, $constantName);
+    }
     /**
      * Get a reflection class that has this property.
      *

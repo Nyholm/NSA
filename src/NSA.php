@@ -24,8 +24,10 @@ class NSA
      */
     public static function getConstant($objectOrClass, $constantName)
     {
+        $class = $objectOrClass;
+
         if (!is_string($objectOrClass)) {
-            Assert::object($objectOrClass, 'Can not get a property of a non object. Variable of type "%s" was given.');
+            Assert::object($objectOrClass, 'Can not get a constant of a non object. Variable of type "%s" was given.');
             $class = get_class($objectOrClass);
         }
 

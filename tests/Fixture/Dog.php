@@ -4,6 +4,8 @@ namespace Nyholm\NSA\Tests\Fixture;
 
 class Dog extends Animal
 {
+    private const PRIVATE_CONSTANT = 'initConstant';
+
     private $name = 'initName';
 
     protected $owner = 'initOwner';

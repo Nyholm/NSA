@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.2.0 - 2020-06-08
+## 1.2.0 - 2020-06-05
 
 * Added `NSA::getConstant()`
 

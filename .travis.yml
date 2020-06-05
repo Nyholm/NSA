@@ -7,13 +7,10 @@ cache:
         - $HOME/.composer/cache/files
 
 php:
-    - 5.4
-    - 5.5
-    - 5.6
-    - 7.0
     - 7.1
     - 7.2
-    - hhvm
+    - 7.3
+    - 7.4
 
 env:
     global:
@@ -26,10 +23,8 @@ branches:
 matrix:
     fast_finish: true
     include:
-        - php: 7.0
+        - php: 7.1
           env: COVERAGE=true TEST_COMMAND="composer test-ci"
-        - php: 5.3
-          dist: precise
 
 before_install:
     - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi

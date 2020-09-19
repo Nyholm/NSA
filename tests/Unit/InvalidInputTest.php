@@ -4,8 +4,9 @@ namespace Nyholm\NSA\tests\Unit;
 
 use Nyholm\NSA;
 use Nyholm\NSA\Tests\Fixture\Dog;
+use PHPUnit\Framework\TestCase;
 
-class InvalidInputTest extends \PHPUnit_Framework_TestCase
+class InvalidInputTest extends TestCase
 {
     /**
      * @expectedException \InvalidArgumentException

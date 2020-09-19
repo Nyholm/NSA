@@ -8,12 +8,10 @@ use PHPUnit\Framework\TestCase;
 
 class ConstantTest extends TestCase
 {
-    /**
-     * @expectedException \LogicException
-     */
     public function testGetConstantNotExist()
     {
         $o = new Dog();
+        $this->expectException(\LogicException::class);
         NSA::getConstant($o, 'INEXISTENT_CONSTANT');
     }
 

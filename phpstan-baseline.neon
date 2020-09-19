@@ -1,0 +1,17 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$methodName$#"
+			count: 1
+			path: src/NSA.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$objectOrClass$#"
+			count: 1
+			path: src/NSA.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$params$#"
+			count: 1
+			path: src/NSA.php
+

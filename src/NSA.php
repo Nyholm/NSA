@@ -144,7 +144,7 @@ class NSA
 
         if (false === $parent = get_parent_class($class)) {
             // No more parents
-            return;
+            return null;
         }
 
         return self::getReflectionClassWithConstant($parent, $constantName);
@@ -171,7 +171,7 @@ class NSA
 
         if (false === $parent = get_parent_class($class)) {
             // No more parents
-            return;
+            return null;
         }
 
         return self::getReflectionClassWithProperty($parent, $propertyName);

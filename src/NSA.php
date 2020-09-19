@@ -54,7 +54,14 @@ class NSA
      */
     public static function getProperty($objectOrClass, $propertyName)
     {
-        return static::getAccessibleReflectionProperty($objectOrClass, $propertyName)->getValue($objectOrClass);
+        $reflectionProperty = static::getAccessibleReflectionProperty($objectOrClass, $propertyName);
+
+        $object = $objectOrClass;
+        if (is_string($objectOrClass)) {
+            $object = (new \ReflectionClass($objectOrClass))->newInstanceWithoutConstructor();
+        }
+
+        return $reflectionProperty->getValue($object);
     }
 
     /**
@@ -70,7 +77,14 @@ class NSA
      */
     public static function setProperty($objectOrClass, $propertyName, $value)
     {
-        static::getAccessibleReflectionProperty($objectOrClass, $propertyName)->setValue($objectOrClass, $value);
+        $reflectionProperty = static::getAccessibleReflectionProperty($objectOrClass, $propertyName);
+
+        $object = $objectOrClass;
+        if (is_string($objectOrClass)) {
+            $object = (new \ReflectionClass($objectOrClass))->newInstanceWithoutConstructor();
+        }
+
+        $reflectionProperty->setValue($object, $value);
     }
 
     /**

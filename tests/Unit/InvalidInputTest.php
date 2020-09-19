@@ -20,7 +20,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayProperty()
     {
-        NSA::getProperty(array('foo' => 'bar'), 'foo');
+        NSA::getProperty(['foo' => 'bar'], 'foo');
     }
 
     /**
@@ -39,7 +39,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayPropertyValue()
     {
-        NSA::getProperty(new Dog(), array('foo' => 'bar'));
+        NSA::getProperty(new Dog(), ['foo' => 'bar']);
     }
 
     /**
@@ -66,7 +66,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayMethod()
     {
-        NSA::invokeMethod(array('foo' => 'bar'), 'foo');
+        NSA::invokeMethod(['foo' => 'bar'], 'foo');
     }
 
     /**
@@ -95,7 +95,7 @@ class InvalidInputTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayMethodName()
     {
-        NSA::invokeMethod(new Dog(), array('foo' => 'bar'));
+        NSA::invokeMethod(new Dog(), ['foo' => 'bar']);
     }
 
     /**

@@ -149,6 +149,7 @@ class NSA
 
         return self::getReflectionClassWithConstant($parent, $constantName);
     }
+
     /**
      * Get a reflection class that has this property.
      *
@@ -214,7 +215,7 @@ class NSA
     }
 
     /**
-     * Get all property names on a class or object
+     * Get all property names on a class or object.
      *
      * @param object|string $objectOrClass
      *
@@ -241,7 +242,7 @@ class NSA
             $class = $parent;
         }
 
-        return array_map(function($reflectionProperty) {
+        return array_map(function ($reflectionProperty) {
             return $reflectionProperty->name;
         }, $properties);
     }

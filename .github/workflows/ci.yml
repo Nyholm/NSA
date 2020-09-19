@@ -1,0 +1,50 @@
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        php: [ '7.2', '7.3', '7.4', '8.0']
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.5.0
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: flex
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
+      - name: Run tests
+        run: ./vendor/bin/simple-phpunit
+
+  lowest:
+    name: Lowest deps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.5.0
+        with:
+          php-version: 7.3
+          coverage: pcov
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
+
+      - name: Run tests
+        run: |
+          ./vendor/bin/simple-phpunit  --coverage-text --coverage-clover=build/coverage.xml
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml

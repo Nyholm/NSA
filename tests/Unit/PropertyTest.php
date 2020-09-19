@@ -4,8 +4,9 @@ namespace Nyholm\NSA\Tests\Unit;
 
 use Nyholm\NSA;
 use Nyholm\NSA\Tests\Fixture\Dog;
+use PHPUnit\Framework\TestCase;
 
-class PropertyTest extends \PHPUnit_Framework_TestCase
+class PropertyTest extends TestCase
 {
     /**
      * @expectedException \LogicException

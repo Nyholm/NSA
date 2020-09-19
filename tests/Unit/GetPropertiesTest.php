@@ -4,8 +4,9 @@ namespace Nyholm\NSA\tests\Unit;
 
 use Nyholm\NSA;
 use Nyholm\NSA\Tests\Fixture\Dog;
+use PHPUnit\Framework\TestCase;
 
-class GetPropertiesTest extends \PHPUnit_Framework_TestCase
+class GetPropertiesTest extends TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
@@ -29,24 +30,25 @@ class GetPropertiesTest extends \PHPUnit_Framework_TestCase
     public function propertyDataProvider()
     {
         $dog = new Dog();
-        return array(
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'name'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'owner'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'owner'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'color'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'latinName'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'age'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'birthday'),
-            array('Nyholm\NSA\Tests\Fixture\Dog', 'count'),
-            array($dog, 'name'),
-            array($dog, 'owner'),
-            array($dog, 'owner'),
-            array($dog, 'color'),
-            array($dog, 'latinName'),
-            array($dog, 'age'),
-            array($dog, 'birthday'),
-            array($dog, 'count'),
-        );
+
+        return [
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'name'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'owner'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'owner'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'color'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'latinName'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'age'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'birthday'],
+            ['Nyholm\NSA\Tests\Fixture\Dog', 'count'],
+            [$dog, 'name'],
+            [$dog, 'owner'],
+            [$dog, 'owner'],
+            [$dog, 'color'],
+            [$dog, 'latinName'],
+            [$dog, 'age'],
+            [$dog, 'birthday'],
+            [$dog, 'count'],
+        ];
     }
 
     /**

@@ -8,71 +8,52 @@ use PHPUnit\Framework\TestCase;
 
 class InvalidInputTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIntegerProperty()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperty(1, 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testArrayProperty()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperty(['foo' => 'bar'], 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testStdClassProperty()
     {
         $o = new \stdClass();
         $o->foo = 'bar';
-
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperty($o, 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testArrayPropertyValue()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperty(new Dog(), ['foo' => 'bar']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testStdClassPropertyValue()
     {
         $o = new \stdClass();
         $o->foo = 'bar';
-
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperty(new Dog(), $o);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIntegerMethod()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod(1, 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testArrayMethod()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod(['foo' => 'bar'], 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testStdClassMethod()
     {
         $o = new \stdClass();
@@ -80,28 +61,22 @@ class InvalidInputTest extends TestCase
             return 'bar';
         };
 
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod($o, 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIntegerMethodName()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod(new Dog(), 1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testArrayMethodName()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod(new Dog(), ['foo' => 'bar']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testStdClassMethodName()
     {
         $o = new \stdClass();
@@ -109,31 +84,26 @@ class InvalidInputTest extends TestCase
             return 'bar';
         };
 
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod(new Dog(), $o, 'foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGetReflectionClassWithProperty()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::invokeMethod('Nyholm\NSA', 'getReflectionClassWithProperty', 'No\Real\ClassName', 'prop');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGetNotStaticPropertyWithoutObject()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $class = 'Nyholm\NSA\Tests\Fixture\Dog';
         NSA::getProperty($class, 'name');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvokeStaticMethodWithoutObject()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $class = 'Nyholm\NSA\Tests\Fixture\Dog';
         NSA::invokeMethod($class, 'bark');
     }

@@ -8,22 +8,17 @@ use PHPUnit\Framework\TestCase;
 
 class GetPropertiesTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIntegerProperty()
     {
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperties(1);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testStdClassProperty()
     {
         $o = new \stdClass();
         $o->foo = 'bar';
-
+        $this->expectException(\InvalidArgumentException::class);
         NSA::getProperties($o);
     }
 

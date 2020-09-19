@@ -8,29 +8,23 @@ use PHPUnit\Framework\TestCase;
 
 class MethodTest extends TestCase
 {
-    /**
-     * @expectedException \LogicException
-     */
     public function testInvokeMethodNoArguments()
     {
+        $this->expectException(\LogicException::class);
         NSA::invokeMethod();
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testInvokeMethodOneArguments()
     {
         $o = new Dog();
+        $this->expectException(\LogicException::class);
         NSA::invokeMethod($o);
     }
 
-    /**
-     * @expectedException \LogicException
-     */
     public function testInvokeMethodNotExist()
     {
         $o = new Dog();
+        $this->expectException(\LogicException::class);
         NSA::invokeMethod($o, 'noMethod');
     }
 

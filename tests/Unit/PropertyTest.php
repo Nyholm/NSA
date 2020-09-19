@@ -8,12 +8,10 @@ use PHPUnit\Framework\TestCase;
 
 class PropertyTest extends TestCase
 {
-    /**
-     * @expectedException \LogicException
-     */
     public function testGetPropertyNotExist()
     {
         $o = new Dog();
+        $this->expectException(\LogicException::class);
         NSA::getProperty($o, 'noProperty');
     }
 

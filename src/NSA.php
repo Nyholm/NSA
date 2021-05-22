@@ -57,7 +57,9 @@ class NSA
         $reflectionProperty = static::getAccessibleReflectionProperty($objectOrClass, $propertyName);
 
         $object = $objectOrClass;
-        if (is_string($objectOrClass)) {
+        if ($reflectionProperty->isStatic()) {
+            $object = null;
+        } elseif (is_string($objectOrClass)) {
             $object = (new \ReflectionClass($objectOrClass))->newInstanceWithoutConstructor();
         }
 
@@ -80,7 +82,9 @@ class NSA
         $reflectionProperty = static::getAccessibleReflectionProperty($objectOrClass, $propertyName);
 
         $object = $objectOrClass;
-        if (is_string($objectOrClass)) {
+        if ($reflectionProperty->isStatic()) {
+            $object = null;
+        } elseif (is_string($objectOrClass)) {
             $object = (new \ReflectionClass($objectOrClass))->newInstanceWithoutConstructor();
         }
 

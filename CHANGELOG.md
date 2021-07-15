@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0 - 2021-07-15
+
+* Added support for reading static properties of abstract classes
+
 ## 1.2.1 - 2020-09-19
 
 * Added support for PHP8

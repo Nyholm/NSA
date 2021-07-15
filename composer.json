@@ -1,9 +1,14 @@
 {
     "name": "nyholm/nsa",
     "description": "See everything and do whatever you want. No privacy rule will stop us. Used in tests, debugging and fixtures to access properties and methods.",
+    "keywords": [
+        "reflection",
+        "test",
+        "debug",
+        "fixture"
+    ],
+    "homepage": "https://tnyholm.se",
     "license": "MIT",
-    "keywords": ["reflection", "test", "debug", "fixture"],
-    "homepage": "http://tnyholm.se",
     "authors": [
         {
             "name": "Tobias Nyholm",

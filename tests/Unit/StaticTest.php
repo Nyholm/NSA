@@ -50,11 +50,25 @@ class StaticTest extends TestCase
         $this->assertEquals('initialAge', $result);
     }
 
+    public function testStaticPrivateGetPropertyOnAbstractClass()
+    {
+        $result = NSA::getProperty('Nyholm\NSA\Tests\Fixture\AbstractThing', 'count');
+        $this->assertEquals('initCount', $result);
+    }
+
     public function testStaticPrivateSetProperty()
     {
         $class = 'Nyholm\NSA\Tests\Fixture\Dog';
         NSA::setProperty($class, 'age', 'foobar');
         $result = NSA::getProperty($class, 'age');
+        $this->assertEquals('foobar', $result);
+    }
+
+    public function testStaticPrivateSetPropertyOnAbstractClass()
+    {
+        $class = 'Nyholm\NSA\Tests\Fixture\AbstractThing';
+        NSA::setProperty($class, 'count', 'foobar');
+        $result = NSA::getProperty($class, 'count');
         $this->assertEquals('foobar', $result);
     }
 

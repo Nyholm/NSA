@@ -128,7 +128,9 @@ class NSA
         }
 
         $method = $refl->getMethod($methodName);
-        $method->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $method->setAccessible(true);
+        }
 
         // If it is a static call we should pass null as first parameter to \ReflectionMethod::invokeArgs
         $object = null;
@@ -223,7 +225,9 @@ class NSA
         }
 
         $property = $refl->getProperty($propertyName);
-        $property->setAccessible(true);
+        if (PHP_VERSION_ID < 80100) {
+            $property->setAccessible(true);
+        }
 
         if (!$property->isStatic()) {
             Assert::object($objectOrClass, 'Can not access non-static property without an object.');

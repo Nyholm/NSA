@@ -4,11 +4,11 @@ name: Static analysis
 jobs:
   phpstan:
     name: PHPStan
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -25,11 +25,11 @@ jobs:
 
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -43,10 +43,10 @@ jobs:
 
   psalm:
     name: Psalm
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -56,14 +56,14 @@ jobs:
           tools: vimeo/psalm:4.8.1
 
       - name: Download dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v3
 
       - name: Psalm
         run: psalm --no-progress --output-format=github
 
   composer-normalize:
     name: Composer Normalize
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Setup PHP
@@ -74,7 +74,7 @@ jobs:
           tools: composer-normalize
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Normalize
         run: composer-normalize --dry-run

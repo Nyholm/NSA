@@ -8,18 +8,18 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: [ '7.2', '7.3', '7.4', '8.0']
+        php: [ '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
 
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.5.0
+        uses: shivammathur/setup-php@2.36.0
         with:
           php-version: ${{ matrix.php }}
           coverage: none
           tools: flex
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Download dependencies
         run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
@@ -32,13 +32,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up PHP
-        uses: shivammathur/setup-php@2.5.0
+        uses: shivammathur/setup-php@2.36.0
         with:
           php-version: 7.3
           coverage: pcov
 
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Download dependencies
         run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable --prefer-lowest
